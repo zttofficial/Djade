@@ -1,6 +1,6 @@
-import ClientPage from "@/components/client-page"
+import ClientWrapper from "@/components/client-wrapper"
 
 export default function Home() {
-  return <ClientPage />
+  return <ClientWrapper />
 }
 

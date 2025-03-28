@@ -90,10 +90,10 @@ export default function JadeGallery() {
               />
             </div>
             <CardContent className="p-4">
-              <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-white">{item.name}</h3>
               <div className="flex justify-between items-center">
-                <span className="text-sm opacity-80">Token ID: {item.tokenId}</span>
-                <span className="font-bold">{item.price}</span>
+                <span className="text-sm opacity-80 text-white">Token ID: {item.tokenId}</span>
+                <span className="font-bold text-white">{item.price}</span>
               </div>
             </CardContent>
           </Card>
@@ -105,6 +105,7 @@ export default function JadeGallery() {
         size="icon"
         className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white hover:bg-white/40 rounded-full"
         onClick={prevSlide}
+        aria-label="Previous slide"
       >
         <ArrowLeft className="h-6 w-6" />
       </Button>
@@ -114,6 +115,7 @@ export default function JadeGallery() {
         size="icon"
         className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white/20 text-white hover:bg-white/40 rounded-full"
         onClick={nextSlide}
+        aria-label="Next slide"
       >
         <ArrowRight className="h-6 w-6" />
       </Button>

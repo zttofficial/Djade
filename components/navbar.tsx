@@ -1,10 +1,13 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Gem, Menu, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { ModeToggle } from "./mode-toggle"
+import Logo from "./logo"
 
 interface NavbarProps {
   language: "en" | "zh"
@@ -19,22 +22,33 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, id: string) => {
+    e.preventDefault()
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+    if (isMenuOpen) {
+      setIsMenuOpen(false)
+    }
+  }
+
   const navItems = {
     en: [
-      { name: "Home", href: "#" },
-      { name: "About", href: "#" },
-      { name: "Gallery", href: "#" },
-      { name: "How It Works", href: "#" },
-      { name: "Benefits", href: "#" },
-      { name: "Contact", href: "#" },
+      { name: "Home", href: "#home", id: "home" },
+      { name: "About", href: "#about-djade", id: "about-djade" },
+      { name: "Gallery", href: "#explore-jade", id: "explore-jade" },
+      { name: "How It Works", href: "#how-djade-works", id: "how-djade-works" },
+      { name: "Benefits", href: "#benefits-of-djade", id: "benefits-of-djade" },
+      { name: "Contact", href: "#contact", id: "contact" },
     ],
     zh: [
-      { name: "首页", href: "#" },
-      { name: "关于", href: "#" },
-      { name: "画廊", href: "#" },
-      { name: "运作方式", href: "#" },
-      { name: "优势", href: "#" },
-      { name: "联系我们", href: "#" },
+      { name: "首页", href: "#home", id: "home" },
+      { name: "关于", href: "#about-djade", id: "about-djade" },
+      { name: "画廊", href: "#explore-jade", id: "explore-jade" },
+      { name: "运作方式", href: "#how-djade-works", id: "how-djade-works" },
+      { name: "优势", href: "#benefits-of-djade", id: "benefits-of-djade" },
+      { name: "联系我们", href: "#contact", id: "contact" },
     ],
   }
 
@@ -48,21 +62,21 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Gem className={`h-8 w-8 mr-2 ${scrolled ? "text-emerald-600" : "text-white"}`} />
-              <span className={`text-xl font-bold ${scrolled ? "text-foreground" : "text-white"}`}>DJade</span>
+              <Logo size="medium" showText={true} />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             {currentNavItems.map((item, index) => (
-              <Link
+              <a
                 key={index}
                 href={item.href}
+                onClick={(e) => handleScroll(e, item.id)}
                 className={`hover:text-emerald-500 transition-colors ${scrolled ? "text-foreground" : "text-white"}`}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -70,7 +84,9 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
             <Button
               variant="ghost"
               onClick={() => setLanguage(language === "en" ? "zh" : "en")}
-              className={scrolled ? "text-foreground" : "text-white hover:text-white hover:bg-white/20"}
+              className={
+                scrolled ? "text-foreground hover:text-foreground" : "text-white hover:text-white hover:bg-white/20"
+              }
             >
               {language === "en" ? "中文" : "English"}
             </Button>
@@ -85,7 +101,9 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
             <Button
               variant="ghost"
               onClick={() => setLanguage(language === "en" ? "zh" : "en")}
-              className={scrolled ? "text-foreground" : "text-white hover:text-white hover:bg-white/20"}
+              className={
+                scrolled ? "text-foreground hover:text-foreground" : "text-white hover:text-white hover:bg-white/20"
+              }
             >
               {language === "en" ? "中文" : "English"}
             </Button>
@@ -94,7 +112,7 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
               variant="ghost"
               onClick={toggleMenu}
               size="icon"
-              className={scrolled ? "" : "text-white hover:bg-white/20"}
+              className={scrolled ? "text-foreground" : "text-white hover:bg-white/20"}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -108,14 +126,14 @@ export default function Navbar({ language, setLanguage, scrolled = false }: Navb
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col space-y-4">
               {currentNavItems.map((item, index) => (
-                <Link
+                <a
                   key={index}
                   href={item.href}
+                  onClick={(e) => handleScroll(e, item.id)}
                   className="text-foreground hover:text-emerald-500 transition-colors py-2"
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </a>
               ))}
               <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full">
                 {language === "en" ? "Connect Wallet" : "连接钱包"}

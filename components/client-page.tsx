@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Gem, Shield, BarChart3, Globe, ArrowRight, ChevronRight } from "lucide-react"
+import { Shield, BarChart3, Globe, ArrowRight, ChevronRight } from "lucide-react"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import JadeGallery from "@/components/jade-gallery"
 import Image from "next/image"
 import { ThemeProvider } from "@/components/theme-provider"
+import Logo from "./logo"
 
 export default function ClientPage() {
   const [language, setLanguage] = useState<"en" | "zh">("en")
@@ -23,7 +24,9 @@ export default function ClientPage() {
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
   }, [])
 
   const content = {
@@ -40,7 +43,7 @@ export default function ClientPage() {
           "DJade is a pioneering decentralized platform that tokenizes physical jade assets on the blockchain. Following the successful models of DGold and DSilver, DJade brings the cultural and investment value of jade to the decentralized finance ecosystem.",
         features: [
           {
-            icon: <Gem className="h-8 w-8 text-primary" />,
+            icon: <Logo size="small" />,
             title: "Asset Tokenization",
             description:
               "Each DJade token represents ownership of physical jade stored in secure facilities, professionally appraised and certified.",
@@ -125,7 +128,7 @@ export default function ClientPage() {
           "DJade 是一个开创性的去中心化平台，将实物玉石资产在区块链上进行代币化。继 DGold 和 DSilver 成功模式之后，DJade 将玉石的文化和投资价值带入去中心化金融生态系统。",
         features: [
           {
-            icon: <Gem className="h-8 w-8 text-primary" />,
+            icon: <Logo size="small" />,
             title: "资产代币化",
             description: "每个 DJade 代币代表存储在安全设施中的实物玉石的所有权，经过专业评估和认证。",
           },
@@ -212,7 +215,7 @@ export default function ClientPage() {
         <Navbar language={language} setLanguage={setLanguage} scrolled={scrolled} />
 
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/40 z-10"></div>
             <Image
@@ -230,11 +233,12 @@ export default function ClientPage() {
               {currentContent.hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fadeIn animation-delay-400">
-              <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-white">
-                {currentContent.hero.cta} <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-white dark:text-white">
+                <span className="text-white">{currentContent.hero.cta}</span>{" "}
+                <ArrowRight className="ml-2 h-5 w-5 text-white" />
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20">
-                {currentContent.hero.watchVideo}
+              <Button size="lg" className="bg-white hover:bg-gray-100 transition-all duration-300">
+                <span className="text-emerald-800 font-medium">{currentContent.hero.watchVideo}</span>
               </Button>
             </div>
           </div>
@@ -243,8 +247,9 @@ export default function ClientPage() {
           </div>
         </section>
 
+        {/* Rest of the component remains the same */}
         {/* About Section */}
-        <section className="py-20 bg-background">
+        <section id="about-djade" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">{currentContent.about.title}</h2>
             <div className="w-20 h-1 bg-emerald-500 mx-auto mb-12"></div>
@@ -268,7 +273,7 @@ export default function ClientPage() {
         </section>
 
         {/* Gallery Section */}
-        <section className="py-20 bg-gradient-to-r from-emerald-900 to-emerald-700 text-white">
+        <section id="explore-jade" className="py-20 bg-gradient-to-r from-emerald-900 to-emerald-700 text-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">{currentContent.gallery.title}</h2>
             <div className="w-20 h-1 bg-white mx-auto mb-6"></div>
@@ -277,15 +282,15 @@ export default function ClientPage() {
             <JadeGallery />
 
             <div className="text-center mt-12">
-              <Button variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-800">
-                {currentContent.gallery.viewAll}
+              <Button className="bg-white hover:bg-gray-100 transition-all duration-300">
+                <span className="text-emerald-800 font-medium">{currentContent.gallery.viewAll}</span>
               </Button>
             </div>
           </div>
         </section>
 
         {/* How It Works Section */}
-        <section className="py-20 bg-muted">
+        <section id="how-djade-works" className="py-20 bg-muted">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">{currentContent.howItWorks.title}</h2>
             <div className="w-20 h-1 bg-emerald-500 mx-auto mb-16"></div>
@@ -307,7 +312,7 @@ export default function ClientPage() {
         </section>
 
         {/* Benefits Section with Image */}
-        <section className="py-20 bg-background">
+        <section id="benefits-of-djade" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative h-[500px] rounded-lg overflow-hidden">
@@ -341,7 +346,10 @@ export default function ClientPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-emerald-800 to-emerald-600 text-white relative overflow-hidden">
+        <section
+          id="contact"
+          className="py-20 bg-gradient-to-r from-emerald-800 to-emerald-600 text-white relative overflow-hidden"
+        >
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/50 z-10"></div>
             <Image
@@ -357,9 +365,9 @@ export default function ClientPage() {
             <p className="text-xl mb-8 max-w-2xl mx-auto">{currentContent.cta.description}</p>
             <Button
               size="lg"
-              className="bg-white text-emerald-800 hover:bg-emerald-100 transition-all duration-300 transform hover:scale-105"
+              className="bg-white hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
             >
-              {currentContent.cta.button}
+              <span className="text-emerald-800 font-medium">{currentContent.cta.button}</span>
             </Button>
           </div>
         </section>

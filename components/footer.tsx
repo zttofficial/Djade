@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Gem, Twitter, Github, Linkedin, Mail } from "lucide-react"
+import { Twitter, Github, Linkedin, Mail, MessageCircle } from "lucide-react"
+import Logo from "./logo"
 
 interface FooterProps {
   language: "en" | "zh"
@@ -57,7 +58,7 @@ export default function Footer({ language }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center mb-4">
-              <Gem className="h-8 w-8 text-emerald-600 mr-2" />
+              <Logo size="medium" showText={false} />
               <span className="text-xl font-bold">DJade</span>
             </Link>
             <p className="text-muted-foreground mb-4">{currentContent.description}</p>
@@ -68,8 +69,21 @@ export default function Footer({ language }: FooterProps) {
               <Link href="#" className="text-muted-foreground hover:text-primary">
                 <Github className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary">
+              <Link
+                href="https://www.linkedin.com/company/djade"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary"
+              >
                 <Linkedin className="h-5 w-5" />
+              </Link>
+              <Link
+                href="http://t.me/DeJade"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary"
+              >
+                <MessageCircle className="h-5 w-5" />
               </Link>
               <Link href="#" className="text-muted-foreground hover:text-primary">
                 <Mail className="h-5 w-5" />
